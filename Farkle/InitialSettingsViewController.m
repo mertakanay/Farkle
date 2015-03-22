@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.numbers = @[@1,@2,@3,@4,@5,@6,@7,@8,@9,@10];
+    self.numbers = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10"];
 
 }
 
@@ -32,7 +32,7 @@
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return 10;
+    return self.numbers.count;
 }
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
@@ -42,7 +42,7 @@
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    
+    self.numberOfPlayers = self.numbers[row];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

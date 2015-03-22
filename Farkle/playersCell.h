@@ -20,6 +20,7 @@
 @property id<CellDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UITextField *playerTextField;
+
 @property (weak, nonatomic) IBOutlet UILabel *pointsLabel;
 @property NSString *customPlayerName;
 

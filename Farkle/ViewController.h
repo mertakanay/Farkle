@@ -27,5 +27,7 @@
 
 @property NSString *numberOfP;
 
+@property NSMutableArray *playerArray;
+
 @end
 

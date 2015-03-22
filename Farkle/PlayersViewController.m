@@ -9,9 +9,10 @@
 #import "PlayersViewController.h"
 #import "playersCell.h"
 
-@interface PlayersViewController () <UITableViewDelegate, UITableViewDataSource, CellDelegate>
+@interface PlayersViewController () <UITableViewDelegate, UITableViewDataSource, CellDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property NSMutableArray *playerArray;
+
+
 
 
 @end
@@ -29,6 +30,11 @@
 
     }
 
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    NSLog(@"did end editing");
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

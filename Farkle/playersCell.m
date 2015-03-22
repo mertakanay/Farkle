@@ -10,11 +10,11 @@
 
 @implementation playersCell
 
--(void)changePlayerName;
-{
-    self.customPlayerName = self.playerTextField.text;
-
-}
+//-(void)changePlayerName;
+//{
+//    self.customPlayerName = self.playerTextField.text;
+//
+//}
 
 - (void)awakeFromNib {
     // Initialization code
