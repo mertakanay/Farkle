@@ -406,7 +406,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="playerTextField" destination="ILi-RB-Qgn" id="LVV-Yw-LpU"/>
+                                            <outlet property="playerTextField" destination="ILi-RB-Qgn" id="p2X-Og-TOx"/>
                                             <outlet property="pointsLabel" destination="5AT-CA-E4N" id="rRm-OF-3BA"/>
                                         </connections>
                                     </tableViewCell>

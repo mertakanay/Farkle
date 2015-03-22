@@ -42,11 +42,13 @@
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
+    // Create an array of players here
     self.numberOfPlayers = self.numbers[row];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    // Pass the array to the ViewController
     ViewController *VC = [segue destinationViewController];
     NSString *playerNum = [NSString stringWithFormat:@"%li", self.pickerView.];
     VC.numberOfP = playerNum;
