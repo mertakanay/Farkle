@@ -14,6 +14,11 @@
 		3E2542981ABB7A2D0063BA22 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E2542971ABB7A2D0063BA22 /* Images.xcassets */; };
 		3E25429B1ABB7A2D0063BA22 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2542991ABB7A2D0063BA22 /* LaunchScreen.xib */; };
 		3E2542A71ABB7A2D0063BA22 /* FarkleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2542A61ABB7A2D0063BA22 /* FarkleTests.m */; };
+		3E2542B21ABB7B700063BA22 /* DieLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2542B11ABB7B700063BA22 /* DieLabel.m */; };
+		3EEE91321ABF3E4500D99A99 /* PlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEE91311ABF3E4500D99A99 /* PlayersViewController.m */; };
+		3EEE91351ABF4C5200D99A99 /* playersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEE91341ABF4C5200D99A99 /* playersCell.m */; };
+		3EEE91381ABF5BDD00D99A99 /* InitialSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEE91371ABF5BDD00D99A99 /* InitialSettingsViewController.m */; };
+		3EEF1D051ABE0D0C006424BA /* ScoreChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF1D041ABE0D0C006424BA /* ScoreChart.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +45,16 @@
 		3E2542A01ABB7A2D0063BA22 /* FarkleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FarkleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E2542A51ABB7A2D0063BA22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E2542A61ABB7A2D0063BA22 /* FarkleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FarkleTests.m; sourceTree = "<group>"; };
+		3E2542B01ABB7B700063BA22 /* DieLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DieLabel.h; sourceTree = "<group>"; };
+		3E2542B11ABB7B700063BA22 /* DieLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DieLabel.m; sourceTree = "<group>"; };
+		3EEE91301ABF3E4500D99A99 /* PlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayersViewController.h; sourceTree = "<group>"; };
+		3EEE91311ABF3E4500D99A99 /* PlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayersViewController.m; sourceTree = "<group>"; };
+		3EEE91331ABF4C5200D99A99 /* playersCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = playersCell.h; sourceTree = "<group>"; };
+		3EEE91341ABF4C5200D99A99 /* playersCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = playersCell.m; sourceTree = "<group>"; };
+		3EEE91361ABF5BDD00D99A99 /* InitialSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialSettingsViewController.h; sourceTree = "<group>"; };
+		3EEE91371ABF5BDD00D99A99 /* InitialSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialSettingsViewController.m; sourceTree = "<group>"; };
+		3EEF1D031ABE0D0C006424BA /* ScoreChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreChart.h; sourceTree = "<group>"; };
+		3EEF1D041ABE0D0C006424BA /* ScoreChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreChart.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +98,18 @@
 			children = (
 				3E25428E1ABB7A2D0063BA22 /* AppDelegate.h */,
 				3E25428F1ABB7A2D0063BA22 /* AppDelegate.m */,
+				3EEE91361ABF5BDD00D99A99 /* InitialSettingsViewController.h */,
+				3EEE91371ABF5BDD00D99A99 /* InitialSettingsViewController.m */,
 				3E2542911ABB7A2D0063BA22 /* ViewController.h */,
 				3E2542921ABB7A2D0063BA22 /* ViewController.m */,
+				3E2542B01ABB7B700063BA22 /* DieLabel.h */,
+				3E2542B11ABB7B700063BA22 /* DieLabel.m */,
+				3EEF1D031ABE0D0C006424BA /* ScoreChart.h */,
+				3EEF1D041ABE0D0C006424BA /* ScoreChart.m */,
+				3EEE91301ABF3E4500D99A99 /* PlayersViewController.h */,
+				3EEE91311ABF3E4500D99A99 /* PlayersViewController.m */,
+				3EEE91331ABF4C5200D99A99 /* playersCell.h */,
+				3EEE91341ABF4C5200D99A99 /* playersCell.m */,
 				3E2542941ABB7A2D0063BA22 /* Main.storyboard */,
 				3E2542971ABB7A2D0063BA22 /* Images.xcassets */,
 				3E2542991ABB7A2D0063BA22 /* LaunchScreen.xib */,
@@ -220,8 +245,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E2542931ABB7A2D0063BA22 /* ViewController.m in Sources */,
+				3EEE91351ABF4C5200D99A99 /* playersCell.m in Sources */,
 				3E2542901ABB7A2D0063BA22 /* AppDelegate.m in Sources */,
+				3EEF1D051ABE0D0C006424BA /* ScoreChart.m in Sources */,
+				3EEE91381ABF5BDD00D99A99 /* InitialSettingsViewController.m in Sources */,
+				3EEE91321ABF3E4500D99A99 /* PlayersViewController.m in Sources */,
 				3E25428D1ABB7A2D0063BA22 /* main.m in Sources */,
+				3E2542B21ABB7B700063BA22 /* DieLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +444,7 @@
 				3E2542AC1ABB7A2D0063BA22 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3E2542AD1ABB7A2D0063BA22 /* Build configuration list for PBXNativeTarget "FarkleTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +453,7 @@
 				3E2542AF1ABB7A2D0063BA22 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
