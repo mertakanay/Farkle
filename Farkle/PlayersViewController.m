@@ -15,6 +15,7 @@
 
 
 
+
 @end
 
 @implementation PlayersViewController
@@ -37,12 +38,13 @@
     NSLog(@"did end editing");
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(playersCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
+
+    playersCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
     cell.textLabel.text = self.playerArray[(long)indexPath.row];
 
-
+    
     return cell;
 
 }
@@ -56,5 +58,13 @@
 {
     
 }
+
+//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    playersCell *PC = [segue destinationViewController];
+//    NSMutableArray *name = self.playerArray;
+//    PC.customPlayerArray = name;
+//
+//}
 
 @end

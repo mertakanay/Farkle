@@ -11,8 +11,9 @@
 
 @interface PlayersViewController : UIViewController
 
-@property NSString * playerNumber;
+@property NSString *playerNumber;
 @property NSMutableArray *playerArray;
+@property NSString *scoring;
 
 
 @end

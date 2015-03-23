@@ -11,12 +11,23 @@
 #import "ScoreChart.h"
 #import "PlayersViewController.h"
 
-@interface ViewController ()<DieLabelDelegate, UITextFieldDelegate, UIAlertViewDelegate>
+@interface ViewController ()<DieLabelDelegate, UITextFieldDelegate, UIAlertViewDelegate, UICollisionBehaviorDelegate>
 
 @property NSMutableArray *dice;
 
 @property (weak, nonatomic) IBOutlet UILabel *userScore;
 @property CGPoint originalDicePosition;
+
+@property UIDynamicAnimator *shakeItUp;
+@property UIDynamicItemBehavior *shakingDice;
+@property UIGravityBehavior *gravityDice;
+@property UICollisionBehavior *collisionDice;
+
+@property (weak, nonatomic) IBOutlet UIView *box;
+
+@property CGPoint rightTopEdge;
+@property CGPoint leftBottomEdge;
+@property CGPoint rightBottomEdge;
 
 @end
 
@@ -24,6 +35,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.navigationItem.backBarButtonItem.enabled = NO;
+
     for (DieLabel *die in self.diceOutlets) {
         die.delegate = self;
     }
@@ -31,21 +45,60 @@
     self.scoreX = [NSMutableArray arrayWithObjects:self.scoreLabel1,self.scoreLabel2,self.scoreLabel3,self.scoreLabel4,self.scoreLabel5,self.scoreLabel6, nil];
     self.score = [NSMutableArray arrayWithObjects: nil];
 
-//ALERTVIEW TO ENTER NUMBER OF PLAYERS (CURRENTLY REMOVED)
+    self.rightTopEdge = CGPointMake(self.box.frame.origin.x + self.box.frame.size.width, self.box.frame.origin.y);
+    self.leftBottomEdge = CGPointMake(self.box.frame.origin.x, self.box.frame.origin.y + self.box.frame.size.height);
+    self.rightBottomEdge = CGPointMake(self.box.frame.origin.x + self.box.frame.size.width, self.box.frame.origin.y + self.box.frame.size.height);
 
-    //    UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"Number of Players" message:@"Please enter the number of players" preferredStyle:UIAlertControllerStyleAlert];
-
-//    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Number of Players" message:@"Please enter the number of players" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-//    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-//    [alertView textFieldAtIndex:0].delegate = self;
-//    self.numberOfP = [alertView textFieldAtIndex:0].text;
-//    [alertView show];
-
-    
 
 }
 
+-(void)collisionBehavior:(UICollisionBehavior *)behavior endedContactForItem:(id<UIDynamicItem>)item withBoundaryIdentifier:(id<NSCopying>)identifier
+{
+    UIDynamicBehavior *bouncingDice = [[UIDynamicItemBehavior alloc]initWithItems:self.diceOutlets];
+    [self.shakeItUp addBehavior:bouncingDice];
+}
 
+-(void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    self.shakeItUp = [[UIDynamicAnimator alloc]initWithReferenceView:self.view];
+    self.shakingDice = [[UIDynamicItemBehavior alloc]initWithItems:self.diceOutlets];
+    self.gravityDice = [[UIGravityBehavior alloc]initWithItems:self.diceOutlets];
+    self.collisionDice = [[UICollisionBehavior alloc]initWithItems:self.diceOutlets];
+
+    self.rightTopEdge = CGPointMake(self.box.frame.origin.x + self.box.frame.size.width, self.box.frame.origin.y);
+    self.leftBottomEdge = CGPointMake(self.box.frame.origin.x, self.box.frame.origin.y + self.box.frame.size.height);
+    self.rightBottomEdge = CGPointMake(self.box.frame.origin.x + self.box.frame.size.width, self.box.frame.origin.y + self.box.frame.size.height);
+
+    [self.collisionDice addBoundaryWithIdentifier:@"box" fromPoint:self.box.frame.origin toPoint:self.rightTopEdge];
+    [self.collisionDice addBoundaryWithIdentifier:@"box" fromPoint:self.box.frame.origin toPoint:self.leftBottomEdge];
+    [self.collisionDice addBoundaryWithIdentifier:@"box" fromPoint:self.box.frame.origin toPoint:self.rightBottomEdge];
+
+    self.collisionDice.translatesReferenceBoundsIntoBoundary = YES;
+    [self.shakeItUp addBehavior:self.collisionDice];
+    [self.shakeItUp addBehavior:self.gravityDice];
+
+    
+    
+}
+
+-(void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    if (event.subtype == UIEventSubtypeMotionShake)
+    {
+        for (DieLabel *die in self.diceOutlets) {
+            [die roll];
+        }
+    }
+
+    if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
+        [super motionEnded:motion withEvent:event];
+    }
+}
+
+-(BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
 
 - (IBAction)onRollButtonPressed:(UIButton *)sender
 {
@@ -63,12 +116,119 @@
         sender.enabled = YES;
     }
 
-
-
-
-
-
     
+}
+- (IBAction)onEndTurnButtonPressed:(UIButton *)sender
+{
+    //FARKLE LOGIC STARTS HERE
+
+
+        if (![self.scoreLabel1.text isEqualToString:@""]){
+            [self.score addObject:self.scoreLabel1.text];
+        }
+
+        if (![self.scoreLabel2.text isEqualToString:@""]){
+            [self.score addObject:self.scoreLabel2.text];
+        }
+
+        if (![self.scoreLabel3.text isEqualToString:@""]){
+            [self.score addObject:self.scoreLabel3.text];
+        }
+
+        if (![self.scoreLabel4.text isEqualToString:@""]){
+            [self.score addObject:self.scoreLabel4.text];
+        }
+
+        if (![self.scoreLabel5.text isEqualToString:@""]){
+            [self.score addObject:self.scoreLabel5.text];
+        }
+
+        if (![self.scoreLabel6.text isEqualToString:@""]){
+            [self.score addObject:self.scoreLabel6.text];
+        }
+    
+
+    for (int i = 0; i<5; i++) {
+        //        if (self.score.count == 6 && [self.score[0] isEqualToString:self.score[1]] && [self.score[1] isEqualToString:self.score[2]] && [self.score[2] isEqualToString:self.score[3]] && [self.score[3] isEqualToString:self.score[4]] && [self.score[4] isEqualToString:self.score[5]])
+        if([self.score[i] isEqualToString:self.score[i+1]] && self.score.count == 6)
+        {
+            self.userScore.text = @"1000";
+        }
+    }
+
+    for (int i = 0; i<5 ; i++) {
+        for (int j = 0; j<5; j++) {
+            for (int k = 0; k<5; k++){
+                if ([self.score[i] isEqualToString:self.score[i+1]] && [self.score[j] isEqualToString:self.score[j+1]] && [self.score[k] isEqualToString:self.score[k+1]] && i != k && k != j && i != k)
+                {
+                    self.userScore.text = @"1000";
+                }
+
+            }
+        }
+    }
+
+    NSArray *localArray = @[@1,@2,@3,@4,@5,@6];
+    int count = 0;
+    for (NSNumber *number in localArray) {
+        if ([self.score containsObject:number])
+        {
+            count = count + 1;
+        }
+    }
+    if (count == localArray.count)
+    {
+        self.userScore.text = @"1000";
+    }
+
+
+    NSArray *onesArray = @[@1,@1,@1];
+    if ([self.score containsObject:onesArray])
+    {
+        self.userScore.text = @"1000";
+    }
+
+    NSArray *twosArray = @[@2,@2,@2];
+    if ([self.score containsObject:twosArray])
+    {
+        self.userScore.text = @"200";
+    }
+
+    NSArray *threesArray = @[@3,@3,@3];
+    if ([self.score containsObject:threesArray])
+    {
+        self.userScore.text = @"300";
+    }
+
+    NSArray *foursArray = @[@4,@4,@4];
+    if ([self.score containsObject:foursArray])
+    {
+        self.userScore.text = @"400";
+    }
+
+    NSArray *fivesArray = @[@5,@5,@5];
+    if ([self.score containsObject:fivesArray])
+    {
+        self.userScore.text = @"500";
+    }
+
+    NSArray *sixesArray = @[@6,@6,@6];
+    if ([self.score containsObject:sixesArray])
+    {
+        self.userScore.text = @"600";
+    }
+
+    if ([self.score containsObject:@1]) {
+        self.userScore.text = @"100";
+    }
+
+    if ([self.score containsObject:@5]) {
+        self.userScore.text = @"50";
+    }
+    
+    
+    //FARKLE LOGIC ENDS HERE
+
 }
 
 -(void)shouldSelectDiceWhichWillNotRerolled:(DieLabel *)die
@@ -136,131 +296,19 @@
             self.scoreLabel6.textColor = [UIColor blueColor];
             dieLabel.hidden = YES;
 
-
     }
 
     }
 }
 
--(void)farkleLogic
-    {
-
-    //FARKLE LOGIC STARTS HERE
-
-
-    for (UILabel *scoreLabel in self.scoreX) {
-        if (scoreLabel == self.scoreLabel1){
-            [self.score addObject:self.scoreLabel1.text];
-        }
-
-        if (scoreLabel == self.scoreLabel2){
-            [self.score addObject:self.scoreLabel2.text];
-        }
-
-        if (scoreLabel == self.scoreLabel3){
-            [self.score addObject:self.scoreLabel3.text];
-        }
-
-        if (scoreLabel == self.scoreLabel4){
-            [self.score addObject:self.scoreLabel4.text];
-        }
-
-        if (scoreLabel == self.scoreLabel5){
-            [self.score addObject:self.scoreLabel5.text];
-        }
-
-        if (scoreLabel == self.scoreLabel6){
-            [self.score addObject:self.scoreLabel6.text];
-        }
-    }
-
-    for (int i = 0; i<5; i++) {
-        //        if (self.score.count == 6 && [self.score[0] isEqualToString:self.score[1]] && [self.score[1] isEqualToString:self.score[2]] && [self.score[2] isEqualToString:self.score[3]] && [self.score[3] isEqualToString:self.score[4]] && [self.score[4] isEqualToString:self.score[5]])
-        if([self.score[i] isEqualToString:self.score[i+1]] && self.score.count == 6)
-        {
-            self.userScore.text = @"1000";
-        }
-    }
-
-    for (int i = 0; i<5 ; i++) {
-        for (int j = 0; j<5; j++) {
-            for (int k = 0; k<5; k++){
-                if ([self.score[i] isEqualToString:self.score[i+1]] && [self.score[j] isEqualToString:self.score[j+1]] && [self.score[k] isEqualToString:self.score[k+1]] && i != k && k != j && i != k)
-                {
-                    self.userScore.text = @"1000";
-                }
-            }
-        }
-    }
-
-    NSArray *localArray = @[@1,@2,@3,@4,@5,@6];
-    int count = 0;
-    for (NSNumber *number in localArray) {
-        if ([self.score containsObject:number])
-        {
-            count = count + 1;
-        }
-    }
-    if (count == localArray.count)
-    {
-        self.userScore.text = @"1000";
-    }
-
-
-    NSArray *onesArray = @[@1,@1,@1];
-    if ([self.score containsObject:onesArray])
-    {
-        self.userScore.text = @"1000";
-    }
-
-    NSArray *twosArray = @[@2,@2,@2];
-    if ([self.score containsObject:twosArray])
-    {
-        self.userScore.text = @"200";
-    }
-
-    NSArray *threesArray = @[@3,@3,@3];
-    if ([self.score containsObject:threesArray])
-    {
-        self.userScore.text = @"300";
-    }
-
-    NSArray *foursArray = @[@4,@4,@4];
-    if ([self.score containsObject:foursArray])
-    {
-        self.userScore.text = @"400";
-    }
-
-    NSArray *fivesArray = @[@5,@5,@5];
-    if ([self.score containsObject:fivesArray])
-    {
-        self.userScore.text = @"500";
-    }
-
-    NSArray *sixesArray = @[@6,@6,@6];
-    if ([self.score containsObject:sixesArray])
-    {
-        self.userScore.text = @"600";
-    }
-
-    if ([self.score containsObject:@1]) {
-        self.userScore.text = @"100";
-    }
-
-    if ([self.score containsObject:@5]) {
-        self.userScore.text = @"50";
-    }
-
-
-    //FARKLE LOGIC ENDS HERE
-
-}
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     PlayersViewController *playersVC = [segue destinationViewController];
     NSString *transferNumber = self.numberOfP;
+    NSString *score = self.userScore.text;
     playersVC.playerNumber = transferNumber;
+    playersVC.scoring = score;
     
 }
 

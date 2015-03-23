@@ -12,7 +12,9 @@
 
 //-(void)changePlayerName;
 //{
-//    self.customPlayerName = self.playerTextField.text;
+//    for (NSString *name in self.playerArray) {
+//        self.playerTextField.text = name;
+//    }
 //
 //}
 

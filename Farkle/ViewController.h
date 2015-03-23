@@ -28,7 +28,7 @@
 @property NSString *numberOfP;
 
 // Accepts array from pickerview
-@property NSMutableArray *playerArray;
+//@property NSMutableArray *playerArray;
 
 @end
 

@@ -22,6 +22,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *playerTextField;
 
 @property (weak, nonatomic) IBOutlet UILabel *pointsLabel;
-@property NSString *customPlayerName;
+@property NSMutableArray *customPlayerArray;
 
 @end

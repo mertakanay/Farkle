@@ -37,6 +37,7 @@
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
+    pickerView.tintColor = [UIColor cyanColor];
     return self.numbers[row];
 }
 
@@ -50,7 +51,7 @@
 {
     // Pass the array to the ViewController
     ViewController *VC = [segue destinationViewController];
-    NSString *playerNum = [NSString stringWithFormat:@"%li", self.pickerView.];
+    NSString *playerNum = self.numberOfPlayers;
     VC.numberOfP = playerNum;
 
 }
